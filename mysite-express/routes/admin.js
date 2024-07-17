@@ -6,7 +6,8 @@ var {
 } = require("../utils/tool")
 
 const {
-    loginService
+    loginService,
+    updateAdminService
 } = require("../service/adminService");
 
 // 登录
@@ -32,6 +33,10 @@ router.get("/whoami", async function (req, res, next) {
         "id": token.id
     }))
 
+})
+// 更改管理员数据
+router.put("/", async function (req, res, next) {
+    res.send(await updateAdminService(req.body));
 })
 
 module.exports = router;

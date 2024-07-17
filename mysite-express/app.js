@@ -7,12 +7,14 @@ var logger = require('morgan');
 var expressJWT = require("express-jwt");
 const md5 = require('md5');
 const {
-  ForbiddenError
+  ForbiddenError,
+  ServiceError
 } = require("./utils/errors")
 
 
 // 默认读取项目根目录下的 .env 环境变量文件
 require("dotenv").config();
+require("express-async-errors");
 // 引入数据库连接
 require("./dao/db");
 
@@ -61,6 +63,10 @@ app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     // 说明是 token 验证错误，接下来我们来抛出我们自定义的错误
     res.send(new ForbiddenError("未登录，或者登录已经过期").toResponseJSON());
+  } else if (err instanceof ServiceError) {
+    res.send(err.toResponseJSON());
+  } else {
+    res.send(new UnknownError().toResponseJSON());
   }
 });
 
