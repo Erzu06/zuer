@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressJWT = require("express-jwt");
 const md5 = require('md5');
+const session = require("express-session");
 const {
   ForbiddenError,
   ServiceError
@@ -20,9 +21,16 @@ require("./dao/db");
 
 // 引入路由
 var adminRouter = require('./routes/admin');
+var captchaRouter = require("./routes/captcha");
 
 // 创建服务器实例
 var app = express();
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true
+}))
 
 // 使用各种各样的中间件
 app.use(logger('dev'));
@@ -41,14 +49,20 @@ app.use(expressJWT({
 }).unless({
   // 需要排除的 token 验证的路由
   path: [{
-    "url": "/api/admin/login",
-    methods: ["POST"]
-  }]
+      "url": "/api/admin/login",
+      methods: ["POST"]
+    },
+    {
+      "url": "/res/captcha",
+      methods: ["GET"]
+    },
+  ]
 }))
 
 
 // 使用路由中间件
 app.use('/api/admin', adminRouter);
+app.use('/res/captcha', captchaRouter);
 
 
 // catch 404 and forward to error handler
