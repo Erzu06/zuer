@@ -21,6 +21,7 @@ require("./dao/db");
 
 // 引入路由
 var adminRouter = require('./routes/admin');
+var bannerRouter = require('./routes/banner');
 var captchaRouter = require("./routes/captcha");
 
 // 创建服务器实例
@@ -62,6 +63,7 @@ app.use(expressJWT({
 
 // 使用路由中间件
 app.use('/api/admin', adminRouter);
+app.use('/api/banner', bannerRouter);
 app.use('/res/captcha', captchaRouter);
 
 
