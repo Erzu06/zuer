@@ -1,8 +1,6 @@
 // 自定义错误
 // 当错误发生的时候，我们捕获到发生的错误，然后抛出我们自定义的错误
-const {
-    formatResponse
-} = require("./tool")
+const { formatResponse } = require("./tool")
 
 
 /**

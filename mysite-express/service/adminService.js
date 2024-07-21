@@ -1,16 +1,9 @@
 // admin 模块的业务逻辑层
 const md5 = require("md5");
-const {
-    loginDao,
-    updateAdminDao
-} = require("../dao/adminDao");
+const { loginDao, updateAdminDao } = require("../dao/adminDao");
 const jwt = require("jsonwebtoken");
-const {
-    ValidationError
-} = require("../utils/errors");
-const {
-    formatResponse
-} = require("../utils/tool");
+const { ValidationError } = require("../utils/errors");
+const { formatResponse } = require("../utils/tool");
 
 // 登录
 module.exports.loginService = async function (loginInfo) {
@@ -33,17 +26,13 @@ module.exports.loginService = async function (loginInfo) {
             loginPeriod = 1;
         }
         // 生成 token
-        const token = jwt.sign(data, md5(process.env.JWT_SECRET), {
-            expiresIn: 60 * 60 * 24 * loginPeriod
-        });
+        const token = jwt.sign(data, md5(process.env.JWT_SECRET), { expiresIn: 60 * 60 * 24 * loginPeriod });
         return {
             token,
             data
         }
     }
-    return {
-        data
-    };
+    return { data };
 }
 
 // 更新

@@ -2,17 +2,21 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../dbConnect");
 
 // 定义数据模型
-module.exports = sequelize.define("admin", {
+module.exports = sequelize.define("message", {
     // 这张表拥有哪些字段
-    loginId : {
+    nickname : {
         type : DataTypes.STRING,
         allowNull : false
     },
-    name : {
+    content : {
         type : DataTypes.STRING,
         allowNull : false
     },
-    loginPwd : {
+    createDate : {
+        type : DataTypes.STRING,
+        allowNull : false
+    },
+    avatar : {
         type : DataTypes.STRING,
         allowNull : false
     }

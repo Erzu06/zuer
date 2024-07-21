@@ -2,20 +2,20 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../dbConnect");
 
 // 定义数据模型
-module.exports = sequelize.define("admin", {
+module.exports = sequelize.define("blogType", {
     // 这张表拥有哪些字段
-    loginId : {
-        type : DataTypes.STRING,
-        allowNull : false
-    },
     name : {
         type : DataTypes.STRING,
         allowNull : false
     },
-    loginPwd : {
-        type : DataTypes.STRING,
+    articleCount : {
+        type : DataTypes.INTEGER,
         allowNull : false
-    }
+    },
+    order : {
+        type : DataTypes.INTEGER,
+        allowNull : false
+    },
 },{
     freezeTableName : true,
     createdAt : false,

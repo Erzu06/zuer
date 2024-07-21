@@ -87,5 +87,5 @@ function onListening() {
     'pipe ' + addr :
     'port ' + addr.port;
   debug('Listening on ' + bind);
-  console.log("服务器启动")
+  console.log("服务器端已启动，监听 3000 端口...");
 }
